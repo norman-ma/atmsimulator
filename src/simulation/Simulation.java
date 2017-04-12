@@ -216,6 +216,11 @@ public class Simulation
             atm.switchOff();
     }
     
+    
+    public SimKeyboard getKeyboard() {
+        return this.keyboard;
+    }
+    
     /** Notify ATM that a card has been inserted
      */
     void cardInserted()
@@ -270,45 +275,45 @@ public class Simulation
     
     /** The ATM object for the ATM being simulated
      */
-    private ATM atm;
+    ATM atm;
     
     /** The simulated operator panel
      */
-    private SimOperatorPanel operatorPanel;
+    SimOperatorPanel operatorPanel;
     
     /** The simulated card reader
      */
-    private SimCardReader cardReader;
+    protected SimCardReader cardReader;
     
     /** The simulated display
      */
-    private SimDisplay display;
+    protected SimDisplay display;
     
     /** The simulated keyboard
      */
-    private SimKeyboard keyboard;
+    protected SimKeyboard keyboard;
     
     /** The simulated cash dispenser
      */
-    private SimCashDispenser cashDispenser;
+    protected SimCashDispenser cashDispenser;
     
     /** The simulated envelope acceptor
      */
-    private SimEnvelopeAcceptor envelopeAcceptor;
+    protected SimEnvelopeAcceptor envelopeAcceptor;
     
     /** The simulated receipt printer
      */
-    private SimReceiptPrinter receiptPrinter;
+    protected SimReceiptPrinter receiptPrinter;
     
     /** Panel containing the GUI that simulates the ATM
      */
-    private GUI gui;
+    protected GUI gui;
     
     /** Simulated bank
      */
-    private SimulatedBank simulatedBank;
+    protected SimulatedBank simulatedBank;
     
     /** The one and only instance of this class
      */
-    private static Simulation theInstance;
+    protected static Simulation theInstance;
 }    

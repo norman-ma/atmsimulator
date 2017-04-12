@@ -12,14 +12,14 @@ import java.awt.event.*;
 
 /** Simulate the keyboard portion of the customer console
  */
-class SimKeyboard extends Panel
+public class SimKeyboard extends Panel
 {
     /** Constructor
      *
      *  @param display the display on which to echo typed input
      *  @param envelopeAcceptor - to be notified if cancel is pressed
      */
-    SimKeyboard(SimDisplay display,
+    public SimKeyboard(SimDisplay display,
                 SimEnvelopeAcceptor envelopeAcceptor)
     {
         this.display = display;
@@ -175,7 +175,7 @@ class SimKeyboard extends Panel
      *
      *  @param digit the value on the key
      */
-    private synchronized void digitKeyPressed(int digit)
+    protected synchronized void digitKeyPressed(int digit)
     {
         switch (mode)
         {
@@ -244,7 +244,7 @@ class SimKeyboard extends Panel
     
     /** Handle the ENTER key
      */
-    private synchronized void enterKeyPressed()
+    public synchronized void enterKeyPressed()
     {
         switch(mode)
         {
@@ -272,7 +272,7 @@ class SimKeyboard extends Panel
                 
     /** Handle the CLEAR key
      */
-    private synchronized void clearKeyPressed()
+    public synchronized void clearKeyPressed()
     {
         switch(mode)
         {
@@ -303,7 +303,7 @@ class SimKeyboard extends Panel
                 
     /** Handle the CANCEL KEY
      */
-    private synchronized void cancelKeyPressed()
+    public synchronized void cancelKeyPressed()
     {
         switch(mode)
         {

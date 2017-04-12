@@ -50,6 +50,36 @@ public class Message
         this.credits = credits;
     }
     
+    
+    /** Constructor
+     *
+     *  @param messageCode identifying the type of message
+     *  @param card the customer's card
+     *  @param pin the PIN entered by the customer
+     *  @param serialNumber serial number of the transaction
+     *  @param fromAccount the type of the "from" account of the transaction - can
+     *         be -1 if the particular type of transaction does not have a "from"
+     *         account (e.g. a deposit) 
+     *  @param toAccount the type of the "to" account of the transaction - can
+     *         be -1 if the particular type of transaction does not have a "to"
+     *         account (e.g. a withdrawal)
+     *  @param amount the amount of the transaction - can be null if the particular
+     *         type of transaction does not have an amount (e.g. an inquiry)
+     */
+    public Message(int messageCode, Card card, int pin, 
+                   int serialNumber, int fromAccount, int toAccount, Money amount)
+    {
+        this.messageCode = messageCode;
+        this.card = card;
+        this.pin = pin;
+        this.serialNumber = serialNumber;
+        this.fromAccount = fromAccount;
+        this.toAccount = toAccount;
+        this.amount = amount;
+        this.number = null;
+        this.credits = 0;
+    }
+    
     /** Create a printable string representing this message
      *
      *  @return string representation
