@@ -167,6 +167,10 @@ class SimKeyboard extends Panel
             return currentInput.toString();
     }
     
+    public synchronized void pressDigit(int digit){
+        digitKeyPressed(digit);
+    }
+    
     /** Handle a digit key
      *
      *  @param digit the value on the key
@@ -346,11 +350,11 @@ class SimKeyboard extends Panel
     
     /** Current input mode - one of the values defined below
      */
-    private int mode;
+    int mode;
     
     /** Not currently reading input - ignore keys (except CANCEL)
      */
-    private static final int IDLE_MODE = 0;
+    static final int IDLE_MODE = 0;
     
     /** Read input in PIN mode - allow user to enter several characters,
      *  and to clear the line if the user wishes; echo as asterisks
