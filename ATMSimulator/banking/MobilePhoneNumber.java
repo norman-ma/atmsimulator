@@ -13,13 +13,19 @@ public class MobilePhoneNumber {
     
     private String value; 
     private String areacode;
+    private boolean valid;
     
     public MobilePhoneNumber(String number) {
        areacode = number.substring(0,3);
        value = number.substring(3);
+       valid = isValid(number);
     }
     
-    public static boolean isValid(String num){
+    public boolean isValid(){
+        return valid;
+    }
+    
+    private boolean isValid(String num){
         return String.valueOf(num).length() == 10;
     }
     

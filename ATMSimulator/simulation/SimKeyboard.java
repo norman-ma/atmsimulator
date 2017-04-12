@@ -233,6 +233,7 @@ class SimKeyboard extends Panel
                 currentInput.append(digit);
                 String input = currentInput.toString();
                 setEcho(input);
+                break;
             }
         }
     }
@@ -317,6 +318,8 @@ class SimKeyboard extends Panel
             case PIN_MODE:
             case AMOUNT_MODE:
             case MENU_MODE:
+            case MOBILE_NUMBER_MODE:
+            case NUMBER_MODE:
             
                 cancelled = true;
                 notify();

@@ -122,16 +122,12 @@ public class CustomerConsole
     public synchronized MobilePhoneNumber readMobileNumber(String prompt) throws Cancelled
     {
         String input = "";
-        while(!MobilePhoneNumber.isValid(input)){
-            Simulation.getInstance().clearDisplay();
-            Simulation.getInstance().display(prompt);
-            Simulation.getInstance().display("");
+        Simulation.getInstance().clearDisplay();
+        Simulation.getInstance().display(prompt);
+        Simulation.getInstance().display("");
 
-            input = Simulation.getInstance().readInput(Simulation.MOBILE_NUMBER_MODE, 0);
-            System.out.println(input);
-            System.out.println(MobilePhoneNumber.isValid(input));
-            Simulation.getInstance().clearDisplay();
-        }
+        input = Simulation.getInstance().readInput(Simulation.MOBILE_NUMBER_MODE, 0);
+        Simulation.getInstance().clearDisplay();        
         
         if (input == null)
             throw new Cancelled();

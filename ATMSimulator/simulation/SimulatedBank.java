@@ -10,6 +10,7 @@ import banking.AccountInformation;
 import banking.Balances;
 import banking.Card;
 import banking.Message;
+import banking.MobilePhoneNumber;
 import banking.Money;
 import banking.Status;
 
@@ -223,12 +224,18 @@ public class SimulatedBank
      */
     private Status topup(Message message, Balances balances)
     {
+        
+        MobilePhoneNumber number = message.getNumber();
+        if(!number.isValid()){
+            return new Failure("Invalid mobile number");
+        }
+        
         int cardNumber = message.getCard().getNumber();
         
         int accountNumber = ACCOUNT_NUMBER [ cardNumber ] [ message.getFromAccount() ];
         if (accountNumber == 0)
             return new Failure("Invalid account type");
-    
+        
         Money amount = message.getAmount();
         
         Money limitRemaining = new Money(DAILY_WITHDRAWAL_LIMIT);
