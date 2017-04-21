@@ -18,26 +18,12 @@ public class MobilePhoneNumber {
     public MobilePhoneNumber(String number) {
        areacode = number.substring(0,3);
        value = number.substring(3);
-       valid = isValid(number);
+       valid = number.length() == 10;
     }
     
     public boolean isValid(){
         return valid;
-    }
-    
-    private boolean isValid(String num){
-        return String.valueOf(num).length() == 10;
-    }
-    
-    private static boolean isNumber(String s){
-        try{
-            Integer.parseInt(s);
-            return true;
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
+    }    
     
     @Override
     public String toString(){
