@@ -38,25 +38,19 @@ public class TopUpTest {
     private Simulation simulator;
     private Card card;
     private int pin = 4321;
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
+    private int acc_num = 42;
+    private int card_num = 65165156;
     
     @Before
     public void setUp() {
-        atm = new ATM(42, "Gordon College", "First National Bank of Podunk",null);
+        atm = new ATM(acc_num, "Gordon College", "First National Bank of Podunk",null);
         atm.getCashDispenser().setInitialCash(new Money(2000));
         atm.switchOn();
         atm.cardInserted();
         simulator = new Simulation(atm);
         Frame mainFrame = new Frame("ATM Simulation");
         session = new Session(atm);
-        card = new Card(65165156);
+        card = new Card(card_num);
         mainFrame.add(simulator.getGUI());
         mainFrame.setResizable(false);
         mainFrame.pack();
@@ -131,74 +125,79 @@ public class TopUpTest {
 //        fail("The test case is a prototype.");
     }
 
+
     /**
      * Test of completeTransaction method, of class TopUp.
      */
-//    @Test
-//    public void testCompleteTransaction() throws Exception {
-//        System.out.println("completeTransaction");
-//        TopUp instance = new TopUp(atm, session, card, pin);
-//
-//        new Thread(new Runnable() {
-//            public void run() {
-//                Message result = null;
-//                try {
-//                    //enter checking aoount
-//                    Thread.sleep(1000);
-//                    simulator.getKeyboard().pressDigit(8);
-//                    Thread.sleep(1000);
-//                    simulator.getKeyboard().pressDigit(7);
-//                    Thread.sleep(1000);
-//                    simulator.getKeyboard().pressDigit(6);
-//                    Thread.sleep(1000);
-//                    simulator.getKeyboard().pressDigit(4);
-//                    Thread.sleep(1000);
-//                    simulator.getKeyboard().pressDigit(5);
-//                    Thread.sleep(1000);
-//                    simulator.getKeyboard().pressDigit(3);
-//                    Thread.sleep(1000);
-//                    simulator.getKeyboard().pressDigit(2);
-//                    Thread.sleep(1000);
-//                    simulator.getKeyboard().pressDigit(1);
-//                    Thread.sleep(1000);
-//                    simulator.getKeyboard().pressDigit(1);
-//                    Thread.sleep(1000);
-//                    simulator.getKeyboard().pressDigit(9);
-//                    Thread.sleep(1000);
-//                    simulator.getKeyboard().enterKeyPressed();
-//                    Thread.sleep(1000);
-//                    simulator.getKeyboard().pressDigit(2);
-//                    Thread.sleep(1000);
-//                    simulator.getKeyboard().enterKeyPressed();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    System.out.println("Error!!!");
-//                }
-//            }
-//        }).start();
-//        Receipt expResult=null;
-//        
-//        try {
-//           final Message m = instance.getSpecificsFromCustomer();
-//       
-//       expResult = new Receipt(atm, card, instance, instance.balances) {
-//            {
-//                detailsPortion = new String[2];
-//                detailsPortion[0] = "WITHDRAWAL FROM: " + 
-//                                    AccountInformation.ACCOUNT_ABBREVIATIONS[m.getFromAccount()];
-//                detailsPortion[1] = "AMOUNT: " + m.getAmount().toString();
-//            }
-//        };
-//         } catch (CustomerConsole.Cancelled ex) {
-//            Logger.getLogger(WithdrawalTest.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        Receipt result = instance.completeTransaction();
-//        Enumeration exp =expResult.getLines(), r=result.getLines();
-//        exp.nextElement();//times will very
-//        r.nextElement();//times will very
-//        while(exp.hasMoreElements()){
-//            assertTrue(exp.nextElement().equals(r.nextElement()));
-//        }
-//    }
+    @Test
+    public void testCompleteTransaction() throws Exception {
+        System.out.println("completeTransaction");
+        TopUp instance = new TopUp(atm, session, card, pin);        
+        
+        new Thread(new Runnable() {
+            public void run() {
+                Message result = null;
+                try {
+                    //enter checking aoount
+                    Thread.sleep(1000);
+                    simulator.getKeyboard().pressDigit(8);
+                    Thread.sleep(1000);
+                    simulator.getKeyboard().pressDigit(7);
+                    Thread.sleep(1000);
+                    simulator.getKeyboard().pressDigit(6);
+                    Thread.sleep(1000);
+                    simulator.getKeyboard().pressDigit(4);
+                    Thread.sleep(1000);
+                    simulator.getKeyboard().pressDigit(5);
+                    Thread.sleep(1000);
+                    simulator.getKeyboard().pressDigit(3);
+                    Thread.sleep(1000);
+                    simulator.getKeyboard().pressDigit(2);
+                    Thread.sleep(1000);
+                    simulator.getKeyboard().pressDigit(1);
+                    Thread.sleep(1000);
+                    simulator.getKeyboard().pressDigit(1);
+                    Thread.sleep(1000);
+                    simulator.getKeyboard().pressDigit(9);
+                    Thread.sleep(1000);
+                    simulator.getKeyboard().enterKeyPressed();
+                    Thread.sleep(1000);
+                    simulator.getKeyboard().pressDigit(2);
+                    Thread.sleep(1000);
+                    simulator.getKeyboard().enterKeyPressed();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.out.println("Error!!!");
+                }
+            }
+        }).start();
+        
+        Receipt expResult = null;
+        int qty = 2;
+        MobilePhoneNumber number = new MobilePhoneNumber("8764532119");
+        Money amount = new Money(qty*(100)+35);
+        
+        try {
+            final Message m = instance.getSpecificsFromCustomer();
+            expResult = new Receipt(atm, card, instance, instance.balances) {
+            {
+                detailsPortion = new String[3];
+                detailsPortion[0] = "SENT TO: " + 
+                                    number.toString();
+                detailsPortion[1] = "NUMBER OF CREDITS: " + qty;
+                detailsPortion[2] = "AMOUNT: " + amount.toString();
+            }
+        };
+         } catch (CustomerConsole.Cancelled ex) {
+            Logger.getLogger(TopUpTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Receipt result = instance.completeTransaction();
+        Enumeration exp = expResult.getLines(), r=result.getLines();
+        exp.nextElement();//times will very
+        r.nextElement();//times will very
+        while(exp.hasMoreElements()){
+            assertTrue(exp.nextElement().equals(r.nextElement()));
+        }
+    }
     
 }

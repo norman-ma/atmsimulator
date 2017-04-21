@@ -74,7 +74,7 @@ public class TopUp extends Transaction
                 detailsPortion = new String[3];
                 detailsPortion[0] = "SENT TO: " + 
                                     number.toString();
-                detailsPortion[1] = "AMOUNT OF CREDITS: " + qty;
+                detailsPortion[1] = "NUMBER OF CREDITS: " + qty;
                 detailsPortion[2] = "AMOUNT: " + amount.toString();
             }
         };

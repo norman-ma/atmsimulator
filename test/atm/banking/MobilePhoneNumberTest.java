@@ -6,9 +6,6 @@
 package atm.banking;
 
 import banking.MobilePhoneNumber;
-import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -25,14 +22,6 @@ public class MobilePhoneNumberTest {
     
     private MobilePhoneNumber validnumber,invalidnumber;
     
-     @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
     @Before
     public void setUp() {
         validnumber = new MobilePhoneNumber("8765403925");
@@ -40,13 +29,13 @@ public class MobilePhoneNumberTest {
         System.out.println("Setup Complete!");
     }
     
-    @After
-    public void tearDown() {
+    @Test
+    public void testIsValid(){
+        assertTrue(validnumber.isValid());        
     }
     
     @Test
-    public void testIsValid(){
-        assertTrue(validnumber.isValid());   
+    public void testInValid(){
         assertFalse(invalidnumber.isValid());        
     }
     
