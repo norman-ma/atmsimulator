@@ -16,9 +16,13 @@ public class MobilePhoneNumber {
     private boolean valid;
     
     public MobilePhoneNumber(String number) {
-       areacode = number.substring(0,3);
-       value = number.substring(3);
        valid = number.length() == 10;
+       if(valid){
+           areacode = number.substring(0,3);
+           value = number.substring(3);
+       }else{
+           value = number;
+       }
     }
     
     public boolean isValid(){
@@ -27,6 +31,10 @@ public class MobilePhoneNumber {
     
     @Override
     public String toString(){
-        return String.format("(%s)%s-%s", areacode, value.substring(0, 3), value.substring(3));
+        if(valid){
+            return String.format("(%s)%s-%s", areacode, value.substring(0, 3), value.substring(3));
+        }else{
+            return value;
+        }
     }
 }
